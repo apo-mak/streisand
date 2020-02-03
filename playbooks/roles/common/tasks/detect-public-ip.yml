@@ -12,7 +12,9 @@
     external_ipv4_address: "presumed_failed"
 
 - name: "Check external IP Address through Google"
-  command: dig -4 +short myip.opendns.com @resolver1.opendns.com A
+  #command: dig -4 +short myip.opendns.com @resolver1.opendns.com A 
+  #//// resolver1.opendns.com is blocked on many networks... using as temp_solution
+  command: dig resolver.dnscrypt.info +short
   register: dig_output
 
 - name: "Set the variable to the value"
