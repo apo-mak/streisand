@@ -4,6 +4,19 @@
     package: bind9
     state: absent
 
+
+- name: disable the resolved service in order to avoid conflicts with dnsmasq
+  command: sudo systemctl disable systemd-resolved
+  
+- name: Stoping the resolved service in order to avoid conflicts with dnsmasq
+  command: sudo systemctl stop systemd-resolved
+  
+- name: removing the resolved service Files in order to avoid conflicts with dnsmasq
+  command: rm /etc/resolv.conf
+ 
+- name: Set nameserver 1.1.1.1
+  command: echo "nameserver 8.8.8.8" > /etc/resolv.conf
+  
 - name: Install dnsmasq
   apt:
     package: dnsmasq
