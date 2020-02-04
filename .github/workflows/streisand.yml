@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   deps:
     name: Dependencies
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
     env:
       ANSIBLE_CONFIG: tests/ansible.cfg
       ANSIBLE_NOCOWS: true
@@ -39,6 +39,9 @@ jobs:
           sudo apt-get purge -yqq shellcheck
           sudo dpkg -l linux-{image,headers}-* | awk '/^ii/{print $2}' | egrep '[0-9]+\.[0-9]+\.[0-9]+' | grep -v $(uname -r | cut -d- -f-2) | xargs sudo apt-get -yqq purge
           sudo apt-get --purge autoremove -yqq
+      - name: Update Yarn Debian key
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       - name: Install additonal deps
         run: |
           sudo apt-get install ca-certificates
