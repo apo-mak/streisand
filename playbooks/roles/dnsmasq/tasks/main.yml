@@ -39,7 +39,7 @@
 
 - name: systemd_resolved | Creating /etc/resolv.conf
   template:
-    src: etc/resolv.conf.j2
+    src: resolv.conf.j2
     dest: /etc/resolv.conf
     owner: root
     group: root
