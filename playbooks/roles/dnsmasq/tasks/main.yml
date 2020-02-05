@@ -8,17 +8,20 @@
   apt:
     package: dnsmasq
 
-- name: disable the resolved service in order to avoid conflicts with dnsmasq
-  command: sudo systemctl disable systemd-resolved
-  
-- name: Stoping the resolved service in order to avoid conflicts with dnsmasq
-  command: sudo systemctl stop systemd-resolved
-  
-- name: removing the resolved service Files in order to avoid conflicts with dnsmasq
-  command: rm /etc/resolv.conf
-
-- name: Create resolv.conf Files 
-  command: echo 'nameserver 127.0.0.1' > /etc/resolv.conf
+- name: make sure line 'dns=none' is set in /etc/NetworkManager/NetworkManager.conf
+  ini_file:
+    path: /etc/NetworkManager/NetworkManager.conf
+    state: present
+    no_extra_spaces: yes
+    section: main
+    option: dns
+    value: none
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify:
+    - reload NetworkManager
 
 - name: Generate the dnsmasq configuration file
   template:
