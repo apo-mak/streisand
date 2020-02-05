@@ -3,3 +3,8 @@
   systemd:
     name: dnsmasq.service
     state: restarted
+
+- name: reload NetworkManager
+  service:
+    name: NetworkManager
+    state: reloaded
