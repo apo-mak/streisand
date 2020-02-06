@@ -8,6 +8,11 @@
     name: tinyproxy.service
     state: stopped
 
+- name: Clean up the installed-by-default tinyproxy temp dir
+  file:
+    path: /var/run/tinyproxy/
+    state: absent
+
 - name: Create the tinyproxy config directory
   file:
     path: "{{ tinyproxy_conf_dir }}"
