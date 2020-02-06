@@ -55,12 +55,16 @@
     path: /root/.gnupg/S.dirmngr
     state: directory
     mode: '0755'
+  args:  
+    creates: /root/.gnupg/S.dirmngr
     
 - name: "create S.gpg-agent directory if it does not exist "
   file:
     path: /root/.gnupg/S.gpg-agent
     state: directory
     mode: '0755'
+  args:  
+    creates: /root/.gnupg/S.gpg-agent
 
 - name: "Wait for the GPG agent and dirmngr control sockets"
   wait_for:
